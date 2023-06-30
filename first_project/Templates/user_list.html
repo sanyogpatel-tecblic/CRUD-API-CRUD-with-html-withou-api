@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Python Page</title>
+    <link rel="stylesheet" href="{% static "css/mystyle.css" %}">
+</head>
+<body class="container" style="background-color:lavender">
+    <h1>Users list</h1>
+    <div class="col-md-12 col-lg-offset-0">
+    <div class="djangotwo">
+        {% if users %}
+        <table class="table table-bordered bordered" id="tbldata">
+                <thead class="bg-info table-bordered text-uppercase text-capitalize text-black">
+                    <th>User Name</th>
+                    <th>User Last name</th>
+                    <th>User Email</th>
+                    <th>Action</th>
+                </thead>
+
+                {% for acc in users %}
+                <tr>
+                    <td>{{ acc.first_name }}</td>
+                    <td>{{ acc.last_name }}</td>
+                    <td>{{ acc.email }}</td>
+                    <td width="10%">
+                        <div class="w-100 btn-group" role="group">
+                            <a class="btn btn-primary" href="updatepage.html/{{ acc.id }}">Update</a>
+                            <a class="btn btn-danger" href="deluser/{{ acc.id }}">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>NO USER RECORDS FOUND</p>    
+        {% endif %}
+        </div>
+        <div>
+            <a class="btn btn-success" href="createuser.html">Create</a>
+        </div>
+    </div>
+</body>
+</html>

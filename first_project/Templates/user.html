@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Python Page</title>
+    <link rel="stylesheet" href="{% static "css/mystyle.css" %}">
+</head>
+<body>
+    <h1>Hi, Welcome to Django Level Two</h1>
+    <h2>Here are you're User records:</h2>
+
+    <div class="djangotwo">
+        {% if user_list %}
+            <table>
+                <thead>
+                    <th>User Name</th>
+                    <th>User Last name</th>
+                    <th>User Email</th>
+                </thead>
+
+                {% for acc in user_list %}
+                <tr>
+                    <td>{{ acc.first_name }}</td>
+                    <td>{{ acc.last_name }}</td>
+                    <td>{{ acc.email }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>NO USER RECORDS FOUND</p>
+        {% endif %}
+        
+    <div>
+</body>
+</html>
