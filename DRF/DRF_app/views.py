@@ -1,8 +1,12 @@
 
 from .models import Task,User
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from .serializers import UserSerializer,TaskSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.decorators import api_view
+
+from rest_framework.views import APIView
+from DRF_app.utilities.utils import get_tokens_for_user
 # Create your views here.
 
 #Response is used to return API responses in DRF
@@ -59,3 +63,22 @@ def Delete_Task(request, task_id):
         if request.method == 'DELETE':
             task.delete()
             return Response("Task deleted", status=204)
+
+class LogIn(APIView):
+    authentication_classes = []
+    def post(self,request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        
+        try:
+            user = User.objects.get(username=username)
+            if user.password == password:
+                token = get_tokens_for_user(user)
+                return Response({'access_token': token})
+            else:
+                # Invalid credentials
+                return Response({"message": "Invalid credentials"}, status=401)
+        except User.DoesNotExist:
+            # Invalid credentials4
+            return Response({"message": "Invalid Credentials"}, status=401)
+
