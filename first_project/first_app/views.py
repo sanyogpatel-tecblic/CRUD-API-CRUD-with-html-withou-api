@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 from first_app.models import Topic,Webpage,AccessRecord,User
 # Webpage_list = AccessRecord.objects.order_by('date') This line retrieves all objects from the AccessRecord model 
-# Using the objects manager and orders them by the date field in ascending order. The result is assigned to the webpage_list variable.
+# U sing the objects manager and orders them by the date field in ascending order. The result is assigned to the webpage_list variable.
 
 # Date_dict= {'access_records':webpage_list} This line creates a dictionary called date_dict with a key 'access_records' and assigns the webpage_list to it as the corresponding value.
 # This dictionary will be passed as context data to the template.
