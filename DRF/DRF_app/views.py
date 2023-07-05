@@ -2,7 +2,7 @@ from .models import Task,User
 from rest_framework.response import Response
 from .serializers import UserSerializer,TaskSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,authentication_classes,permission_classes
 
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import AccessToken
@@ -36,7 +36,7 @@ def GetDoneTasks(request):
         return Response(serializer.data)
     else:
         return Response("No done tasks found", status=201)
-    
+
 @api_view(['POST'])
 def Create_Task(request):
     if request.method == 'POST':
@@ -45,6 +45,17 @@ def Create_Task(request):
         if serializer.is_valid():
             serializer.save()
             return Response("Task added", status=201)
+        else:
+            return Response(serializer.errors, status=400)
+        
+@api_view(['POST'])
+@authentication_classes([])
+def Register(request): 
+    if request.method == 'POST':
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response("New User Added",status=200)
         else:
             return Response(serializer.errors, status=400)
 
@@ -58,7 +69,7 @@ def Update_Task(request, task_id):
         serializer = TaskSerializer(task, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response("Task updated", status=200)
+            return Response("Task Updated", status=200)
         return Response(serializer.errors, status=400)
     else:
         return Response("YOU CAN NOT PERFORM ANY ACTION IN OTHER USER'S TASK")

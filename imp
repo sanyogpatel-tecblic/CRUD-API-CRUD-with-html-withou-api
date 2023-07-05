@@ -1,0 +1,104 @@
+    virtualenv env
+source env/bin/deactive
+pip freeze
+
+source /home/tecblic/Music/Python/django/env/bin/activate
+source env/bin/activate
+django-admin startproject first_project
+python manage.py startapp first_app
+./manage.py runserver
+python3.11 manage.py runserver
+
+
+ python manage.py migrate
+ python manage.py makemigrations first_app
+ python manage.py makemigrations
+
+
+ python manage.py shell
+
+ #from first_app.models import Topic
+ print(Topic.objects.all())
+ 
+POST (CREATE) using shell :- 
+
+    from first_app.models import User
+    first_name="Ssss"
+    last_name="patel"
+    
+    user = User.objects.create(first_name=first_name, last_name=last_name, email=email)
+    
+GET (Get All Records) using shell :- 
+    
+    
+    
+    
+    
+def get_user_id_from_access_token(token_string):
+    secret_key = "your-secret-key"
+
+    try:
+        # Decode and verify the token
+        token = AccessToken(token_string)
+        token.verify(secret_key)
+
+        # Extract the user ID from the token
+        user_id = token["user_id"]
+        print(user_id)
+        return user_id
+    except TokenError as e:
+        raise ValueError(f"Failed to parse token: {str(e)}")
+    except KeyError:
+        raise ValueError("Failed to extract user ID from token")
+
+def verify_access_token(access_token):
+    secret_key = "your-secret-key"
+
+    try:
+        # Decode the token
+        token = Token(access_token)
+
+        # Verify the token's signature and check the signing method
+        if not token.verify(secret_key):
+            raise TokenError("Invalid token signature")
+
+        # Get the claims from the token
+        claims = token.payload
+
+        return claims
+    except TokenError as e:
+        raise ValueError(f"Failed to verify access token: {str(e)}")
+    
+    
+
+def generate_access_token(user_id):
+    secret_key = "your-secret-key"
+    algorithm = "HS256"
+
+    # Define the payload/claims
+    payload = {"user_id": user_id}
+
+    # Generate the encoded token
+    token = jwt.encode(payload, secret_key, algorithm=algorithm)
+
+    return token
+
+
+from rest_framework.views import APIView
+class LogIn(APIView):
+    authentication_classes = []
+    def post(self,request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        
+        try:
+            user = User.objects.get(username=username)
+            if user.password == password:
+                token = get_tokens_for_user(user)
+                return Response({'access_token': token})
+            else:
+                # Invalid credentials
+                return Response({"message": "Invalid credentials"}, status=401)
+        except User.DoesNotExist:
+            # Invalid credentials4
+            return Response({"message": "Invalid credentials"}, status=401)

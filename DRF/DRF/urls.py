@@ -31,8 +31,8 @@ urlpatterns = [
     path('login',views.LogIn.as_view(),name='login'),
     # path('login',views.LoginVaibhav,name='login'),
     path('markasdone/<int:task_id>',views.MarkAsDone,name='markasdone'),
-    path('donetasks',views.GetDoneTasks,name='donetasks')
-    
+    path('donetasks',views.GetDoneTasks,name='donetasks'),
+    path('register',views.Register,name='register')
 ]
 
 
