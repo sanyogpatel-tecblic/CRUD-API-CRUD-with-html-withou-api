@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'DRF.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'DRF_demo',
+        'NAME': 'ToDo',
         'USER': 'postgres',
         'PASSWORD': 'root',
         'HOST': 'localhost',
@@ -136,3 +136,4 @@ REST_FRAMEWORK = {
         'DRF_app.customs.authentication.JWTAuthentication',
     ],
 }
+

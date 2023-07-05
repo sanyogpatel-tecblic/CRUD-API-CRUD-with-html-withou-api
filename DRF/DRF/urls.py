@@ -23,12 +23,15 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/', include('DRF_app.urls')),
-    path('task/',views.GetAllTask,name= 'task_list'),
+    path('task/',views.GetTaskByUser,name= 'task_list'),
     path('users/',views.GetAllUser,name= 'user_list'),
     path('create_task/',views.Create_Task,name= 'create_task'),
     path('update_task/<int:task_id>',views.Update_Task,name= 'update_task'),
     path('delete_task/<int:task_id>',views.Delete_Task,name= 'delete_task'),
     path('login',views.LogIn.as_view(),name='login'),
+    # path('login',views.LoginVaibhav,name='login'),
+    path('markasdone/<int:task_id>',views.MarkAsDone,name='markasdone'),
+    path('donetasks',views.GetDoneTasks,name='donetasks')
     
 ]
 

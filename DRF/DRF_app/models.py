@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class User(models.Model):
     username = models.CharField(max_length=264, unique=True)
     password = models.CharField(max_length=264,unique=True)
@@ -9,7 +10,8 @@ class User(models.Model):
 
 class Task(models.Model):    
     task = models.CharField(max_length=10000, unique=False)
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    status = models.CharField(max_length=2,default=0)
     def __str__(self):
         return self.task
     

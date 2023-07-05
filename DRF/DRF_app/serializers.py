@@ -3,18 +3,15 @@ from .models import User, Task
 
 # UserSerializer inherits from serializers.ModelSerializer
 # model=user means user model is associated with serializer using the model attribute
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'password']
 
-
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ['id', 'task']
+        fields = ['task','user']
 
     def validate_task(self, value):
         if len(value) < 4:

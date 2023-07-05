@@ -4,8 +4,10 @@ import jwt
 from django.contrib.auth import get_user_model
 from rest_framework import exceptions, status
 from rest_framework.authentication import BaseAuthentication, get_authorization_header
+from DRF_app.models import Task, User
+# from django.contrib.auth.models import User
 
-User = get_user_model()
+User = User
 
 
 class JWTAuthentication(BaseAuthentication):
