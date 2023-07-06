@@ -23,4 +23,4 @@ class District(models.Model):
     district = models.CharField(max_length=264)
     zone = models.ForeignKey(Zone,on_delete=models.CASCADE,null=True)
     def __str__(self):
-        return self.zone
+        return self.district    

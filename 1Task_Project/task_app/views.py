@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from .models import Region,State,Zone,District
 from task_app.serializers import StateSerializer,RegionSerializer,ZoneSerializer,DistrictSerializer
 from rest_framework.decorators import api_view,authentication_classes,permission_classes
-# Create your views here.
+from django.db.models import Q
 
 @api_view(['GET'])
 def GetRegion(request):
@@ -28,7 +28,22 @@ def GetZone(request):
 @api_view(['GET'])
 def GetDistrict(request):
     zone = request.query_params.get('zone')
-    district = District.objects.filter(zone__zone__iexact=zone)
+    words = zone.split() 
+    query = Q()
+
+    for word in words:
+        query = Q(zone__zone__icontains=word)
+
+    district = District.objects.filter(query)
     serializer = DistrictSerializer(district, many=True)
     return Response(serializer.data)
+
+
+
+
+
+
+
+
+
 

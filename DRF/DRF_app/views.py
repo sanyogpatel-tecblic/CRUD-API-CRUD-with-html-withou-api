@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from .serializers import UserSerializer,TaskSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view,authentication_classes,permission_classes
+# from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import AccessToken
@@ -15,10 +17,19 @@ from DRF_app.utilities.utils import get_tokens_for_user
 #task = Task.objects.all() it retrives all the instances of Task Model
 #many=true defines that there are multiple instances to serailized
 #serializer.data property retrieves the serialized data as JSON format.
+from rest_framework.permissions import BasePermission
+
+class IsAdminOnly(BasePermission):
+    def has_permission(self, request, view):
+        print(request.user.role,"sssssssss")  # Print the role of the logged-in user
+        return request.user.role.name == 'admin'
+
+
 @api_view(['GET'])
+@permission_classes([IsAdminOnly])
 def GetAllUser(request):
-    user= User.objects.all()
-    serializer = UserSerializer(user,many=True)
+    user = User.objects.all()
+    serializer = UserSerializer(user, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
@@ -50,7 +61,9 @@ def Create_Task(request):
         
 @api_view(['POST'])
 @authentication_classes([])
-def Register(request): 
+
+def Register(request):
+     
     if request.method == 'POST':
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -69,7 +82,7 @@ def Update_Task(request, task_id):
         serializer = TaskSerializer(task, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response("Task Updated", status=200)
+            return Response("Task updated", status=200)
         return Response(serializer.errors, status=400)
     else:
         return Response("YOU CAN NOT PERFORM ANY ACTION IN OTHER USER'S TASK")
@@ -109,12 +122,12 @@ def MarkAsDone(request, task_id):
 class LogIn(APIView):
     authentication_classes = []
     def post(self,request):
-        username = request.data.get('username')
+        email = request.data.get('email')
         password = request.data.get('password')
         
         try:
-            user = User.objects.get(username=username)
-            if user.password == password:
+            user = authenticate(email=email,password=password)
+            if user:
                 token = get_tokens_for_user(user)
                 return Response({'access_token': token})
             else:

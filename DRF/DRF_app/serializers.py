@@ -9,7 +9,7 @@ from .models import User, Task
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'role']
+        fields = ['id', 'email', 'password', 'role']
         extra_kwargs = {
             'username': {'required': True} 
         }

@@ -16,8 +16,7 @@ class ZoneSerializer(serializers.ModelSerializer):
         model = Zone
         fields = ['id', 'zone','state_id']
 
-
 class DistrictSerializer(serializers.ModelSerializer):
     class Meta:
         model = District
-        fields = ['id', 'zone','zone_id']
+        fields = ['id', 'district','zone_id']
