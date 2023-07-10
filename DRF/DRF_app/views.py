@@ -8,8 +8,7 @@ from django.contrib.auth import authenticate
 from django.db.models import Q
 
 from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import AccessToken
-from rest_framework_simplejwt.tokens import TokenError
+
 from DRF_app.utilities.utils import get_tokens_for_user
 # Create your views here.
 
@@ -76,14 +75,13 @@ def Create_Task(request):
 #ensuring that at least one of the words is matched in the task field
 #The Q() object in Django is used to define complex queries by combining multiple 
 #conditions using logical operators such as OR (|) and AND (&).
+#here |= is used to check each word against the task field it is used to combine each word 
 @api_view(['GET'])
 def Search_Task(request):
     if request.method == 'GET':
         search = request.query_params.get('search')
         words = search.split()
         query = Q()
-
-        #here |= is used to check each word against the task field it is used to combine each word 
         for word in words:
             query |= Q(task__icontains=word)
 
