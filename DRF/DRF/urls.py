@@ -26,13 +26,16 @@ urlpatterns = [
     path('task/',views.GetTaskByUser,name= 'task_list'),
     path('users/',views.GetAllUser,name= 'user_list'),
     path('create_task/',views.Create_Task,name= 'create_task'),
-    path('update_task/<int:task_id>',views.Update_Task,name= 'update_task'),
+    path('update_task/<int:task_id>',views.Update_Task,name= 'update_task'),    
     path('delete_task/<int:task_id>',views.Delete_Task,name= 'delete_task'),
     path('login',views.LogIn.as_view(),name='login'),
     # path('login',views.LoginVaibhav,name='login'),
     path('markasdone/<int:task_id>',views.MarkAsDone,name='markasdone'),
     path('donetasks',views.GetDoneTasks,name='donetasks'),
-    path('register',views.Register,name='register')
+    path('register',views.Register,name='register'),
+    path('delete_user/<int:user_id>',views.DeleteUser,name='delete'),
+    
+    path('search_task/',views.Search_Task,name='searchtask'),
 ]
 
 

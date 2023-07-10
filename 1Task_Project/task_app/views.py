@@ -19,7 +19,7 @@ def GetState(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def GetZone(request):
+def GetZone(request):   
     state = request.query_params.get('state')
     zone =Zone.objects.filter(state__state__iexact= state)
     serializer = ZoneSerializer(zone, many=True)
