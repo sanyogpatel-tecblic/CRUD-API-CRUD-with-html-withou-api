@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 from django.http import HttpResponse
@@ -19,6 +20,7 @@ def user(request):
     context = {'user_list': user_list}
     return render(request, 'user.html', context)
 
+@csrf_exempt
 def create_user(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']

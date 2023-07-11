@@ -8,6 +8,9 @@ from django.contrib.auth import authenticate
 from django.db.models import Q
 
 from rest_framework.views import APIView
+import os
+
+
 
 from DRF_app.utilities.utils import get_tokens_for_user
 # Create your views here.
@@ -23,6 +26,25 @@ class IsAdminOnly(BasePermission):
     def has_permission(self, request, view):
         # Print the role of the logged-in user
         return request.user.role.name == 'admin'
+
+@api_view(['POST'])
+@authentication_classes([])
+def Register(request):
+    if request.method == 'POST':
+        role = Role.objects.filter(name='user').first()
+        if role:
+            roleid = role.id
+        else:
+            return Response("Role not found", status=404)
+        serializer = UserSerializer(data=request.data)
+
+        if serializer.is_valid():
+             #below line defines that u  are addig new key value pair in request.data 
+            serializer.validated_data['role_id'] = roleid 
+            serializer.save()
+            return Response("New User Added", status=200)
+        else:
+            return Response(serializer.errors, status=400)
 
 @api_view(['GET'])
 @permission_classes([IsAdminOnly])
@@ -41,7 +63,7 @@ def DeleteUser(request, user_id):
     
     if request.method == 'DELETE':
         user.delete()
-        return Response("User Deleted", status=204)
+        return Response("User Deleted", status=204) 
 
 @api_view(['GET'])
 def GetTaskByUser(request):
@@ -82,8 +104,9 @@ def Search_Task(request):
         search = request.query_params.get('search')
         words = search.split()
         query = Q()
+    
         for word in words:
-            query |= Q(task__icontains=word)
+                query = Q(task__icontains=word) | Q(status__icontains=word)
 
         tasks = Task.objects.filter(query,user=request.user)
         if tasks:
@@ -93,24 +116,6 @@ def Search_Task(request):
             return Response("Task not found",status= 400)
        
 
-@api_view(['POST'])
-@authentication_classes([])
-def Register(request):
-    if request.method == 'POST':
-        role = Role.objects.filter(name='user').first()
-        if role:
-            roleid = role.id
-        else:
-            return Response("Role not found", status=404)
-        serializer = UserSerializer(data=request.data)
-
-        if serializer.is_valid():
-             #below line defines that u  are addig new key value pair in request.data 
-            serializer.validated_data['role_id'] = roleid 
-            serializer.save()
-            return Response("New User Added", status=200)
-        else:
-            return Response(serializer.errors, status=400)
 
 @api_view(['PUT'])
 def Update_Task(request, task_id):

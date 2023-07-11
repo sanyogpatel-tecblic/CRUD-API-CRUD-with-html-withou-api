@@ -28,5 +28,4 @@ urlpatterns = [
     # path('users2/updatepage.html/<int:id>/',views.updatepage,name='updatepage'),
     # path('users2/createuser.html',views.create_user,name='create_user'),
     path('users2/createuser.html/',views.create_user,name='create_user'),
-
 ]  

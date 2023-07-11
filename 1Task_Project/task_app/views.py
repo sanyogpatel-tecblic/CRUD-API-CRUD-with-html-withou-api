@@ -32,7 +32,7 @@ def GetDistrict(request):
     query = Q()
 
     for word in words:
-        query = Q(zone__zone__icontains=word)
+        query |= Q(zone__zone__icontains=word)
 
     district = District.objects.filter(query)
     serializer = DistrictSerializer(district, many=True)
