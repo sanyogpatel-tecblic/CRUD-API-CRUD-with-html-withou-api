@@ -1,5 +1,9 @@
 from rest_framework import serializers
 from .models import User, Task
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+
+from django.utils.encoding import DjangoUnicodeDecodeError, force_bytes, smart_str
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 # UserSerializer inherits from serializers.ModelSerializer
 # model=user means user model is associated with serializer using the model attribute
@@ -19,6 +23,38 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Username Must be at least 4 characters long")
         return value
 
+class VerifyPasswordSerializer(serializers.Serializer):
+    newpassword = serializers.CharField(style={"input_type": "password"})
+    confirmpassword = serializers.CharField(style={"input_type": "password"})
+
+    def validate(self, attrs):
+        try:
+            password = attrs.get("newpassword")
+            password2 = attrs.get("confirmpassword")
+            id = self.context["request"].query_params.get("id")
+            token = self.context["request"].query_params.get("token")
+            id = smart_str(urlsafe_base64_decode(id))
+            
+            # Retrieve the user object based on the decoded id
+            user = User.objects.get(id=id)
+            
+            if not PasswordResetTokenGenerator().check_token(user, token):
+                raise serializers.ValidationError(
+                    {"Error": "Token is not valid or expired"}
+                )
+            if password != password2:
+                raise serializers.ValidationError(
+                    {"Error": "Passwords do not match"}
+                )
+            user.set_password(password)
+            user.save()
+            return attrs
+        except User.DoesNotExist:
+            raise serializers.ValidationError({"Error": "User does not exist"})
+        except DjangoUnicodeDecodeError:
+            raise serializers.ValidationError({"Error": "Token is not valid or expired"})
+
+        
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task

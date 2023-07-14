@@ -1,18 +1,24 @@
 from .models import Task, User, Role
 from rest_framework.response import Response
-from .serializers import UserSerializer, TaskSerializer
+from .serializers import UserSerializer, TaskSerializer,VerifyPasswordSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 # from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.db.models import Q
-
-from rest_framework.views import APIView
-import os
-
-
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from rest_framework import status
 
 from DRF_app.utilities.utils import get_tokens_for_user
+from django.utils.encoding import DjangoUnicodeDecodeError, force_bytes, smart_str
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from rest_framework.views import APIView
+import os
+from DRF_app.utilities.utils import Util
+import sendgrid
+from sendgrid.helpers.mail import Mail
+from django.conf import settings
+from django.core.mail import send_mail
 # Create your views here.
 
 # Response is used to return API responses in DRF
@@ -23,6 +29,7 @@ from DRF_app.utilities.utils import get_tokens_for_user
 from rest_framework.permissions import BasePermission
 
 class IsAdminOnly(BasePermission):
+    
     def has_permission(self, request, view):
         # Print the role of the logged-in user
         return request.user.role.name == 'admin'
@@ -39,12 +46,42 @@ def Register(request):
         serializer = UserSerializer(data=request.data)
 
         if serializer.is_valid():
-             #below line defines that u  are addig new key value pair in request.data 
+            print(roleid)
             serializer.validated_data['role_id'] = roleid 
-            serializer.save()
+          
+            user = serializer.save()
+            print("Mail sent!")
             return Response("New User Added", status=200)
         else:
             return Response(serializer.errors, status=400)
+        
+class verifyLink(APIView):
+    authentication_classes = []
+    def get(self,request,id,token):
+        id = smart_str(urlsafe_base64_decode(id))
+        user = User.objects.get(id=id) 
+        if not PasswordResetTokenGenerator().check_token(user, token):
+            return Response({"message":"your token is expired"},status=status.HTTP_400_BAD_REQUEST)
+        user.is_verify = True
+        user.save()
+        return Response({"message":"User Email verify Successfully"},status=status.HTTP_200_OK)
+
+class VerifyPassword(APIView):
+    authentication_classes = []
+
+    def post(self, request, *args, **kwargs):
+        serializer = VerifyPasswordSerializer(data=request.data, context={"request": request})
+        if serializer.is_valid(raise_exception=True):
+            response = {
+                "message": "Password changed successfully",
+                "status": status.HTTP_200_OK,
+            }
+            return Response(response, status=status.HTTP_200_OK)
+        response = serializer.errors
+        response["status"] = status.HTTP_400_BAD_REQUEST
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        
 
 @api_view(['GET'])
 @permission_classes([IsAdminOnly])
@@ -67,31 +104,43 @@ def DeleteUser(request, user_id):
 
 @api_view(['GET'])
 def GetTaskByUser(request):
-    tasks = Task.objects.filter(user=request.user)
-    serializer = TaskSerializer(tasks, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def GetDoneTasks(request):
-    status = Task.objects.filter(status=1)
-    if status.exists:
-        tasks = Task.objects.filter(user=request.user, status=1)
+    if request.user.is_verify == True:
+        tasks = Task.objects.filter(user=request.user)
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data)
     else:
-        return Response("No done tasks found", status=201)
+        message={"message":"You have not verfied your email address yet please check your email to verify your account"}
+        return Response(message,status=400) 
+
+@api_view(['GET'])
+def GetDoneTasks(request):
+    if request.user.is_verify == True:
+        status = Task.objects.filter(status=1)
+        if status.exists:
+            tasks = Task.objects.filter(user=request.user, status=1)
+            serializer = TaskSerializer(tasks, many=True)
+            return Response(serializer.data)
+        else:
+            return Response("No done tasks found", status=201)
+    else:
+        message={"message":"You have not verfied your email address yet please check your email to verify your account"}
+        return Response(message,status=400)
 
 @api_view(['POST'])
 def Create_Task(request):
     if request.method == 'POST':
         #below line defines that u  are addig new key value pair in request.data 
-        request.data['user'] = request.user.id
-        serializer = TaskSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response("Task added", status=201)
+        if request.user.is_verify == True:
+            request.data['user'] = request.user.id
+            serializer = TaskSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response("Task added", status=201)
+            else:
+                return Response(serializer.errors, status=400)
         else:
-            return Response(serializer.errors, status=400)
+            message={"message":"You have not verfied your email address yet please check your email to verify your account"}
+            return Response(message,status=400)
 
 #use the |= operator to combine multiple Q objects with the OR operator, 
 #ensuring that at least one of the words is matched in the task field
@@ -101,34 +150,41 @@ def Create_Task(request):
 @api_view(['GET'])
 def Search_Task(request):
     if request.method == 'GET':
-        search = request.query_params.get('search')
-        words = search.split()
-        query = Q()
-    
-        for word in words:
-                query = Q(task__icontains=word) | Q(status__icontains=word)
+        if request.user.is_verify == True:
+            search = request.query_params.get('search')
+            words = search.split()
+            query = Q()
+        
+            for word in words:
+                    query = Q(task__icontains=word) | Q(status__icontains=word)
 
-        tasks = Task.objects.filter(query,user=request.user)
-        if tasks:
-             serializer = TaskSerializer(tasks, many=True)
-             return Response(serializer.data)   
+            tasks = Task.objects.filter(query,user=request.user)
+            if tasks:
+                serializer = TaskSerializer(tasks, many=True)
+                return Response(serializer.data)   
+            else:
+                return Response("Task not found",status= 400)
         else:
-            return Response("Task not found",status= 400)
+            message={"message":"You have not verfied your email address yet please check your email to verify your account"}
+            return Response(message,status=400)
        
-
-
 @api_view(['PUT'])
 def Update_Task(request, task_id):
+    
     try:
         task = Task.objects.get(id=task_id)
     except Task.DoesNotExist:
         return Response("Task not found", status=404)
     if request.method == 'PUT' and task.user == request.user:
-        serializer = TaskSerializer(task, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response("Task updated", status=200)
-        return Response(serializer.errors, status=400)
+        if request.user.is_verify == True:
+            serializer = TaskSerializer(task, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response("Task updated", status=200)
+            return Response(serializer.errors, status=400)
+        else:
+            message={"message":"You have not verfied your email address yet please check your email to verify your account"}
+            return Response(message,status=400)
     else:
         return Response("YOU CAN NOT PERFORM ANY ACTION IN OTHER USER'S TASK")
 
@@ -140,9 +196,13 @@ def Delete_Task(request, task_id):
         return Response("Task not found", status=404)
 
     if request.method == 'DELETE' and task.user == request.user:
-        task.delete()
-        return Response("Task deleted", status=204)
-
+        if request.user.is_verify == True:
+            task.delete()
+            return Response("Task deleted", status=204)
+        else:
+            message={"message":"You have not verfied your email address yet please check your email to verify your account"}
+            return Response(message,status=400)
+        
 @api_view(['PUT'])
 def MarkAsDone(request, task_id):
     try:
@@ -154,15 +214,18 @@ def MarkAsDone(request, task_id):
     print(task.user.id)
     print(request.user.id)
     if request.method == 'PUT' and task.user == request.user:
-        task.status = 1
-        task.save()
-        serializer = TaskSerializer(task)
-        message = {"message": "Task marked as done."}
-        return Response({**serializer.data, **message})
-
+        if request.user.is_verify == True:
+    
+            task.status = 1
+            task.save()
+            serializer = TaskSerializer(task)
+            message = {"message": "Task marked as done."}
+            return Response({**serializer.data, **message})
+        else:
+            message={"message":"You have not verfied your email address yet please check your email to verify your account"}
+            return Response(message,status=400)
     message = {"message": "You cannot perform any action on another user's task."}
     return Response(message, status=403)
-
 
 class LogIn(APIView):
     authentication_classes = []
@@ -180,4 +243,4 @@ class LogIn(APIView):
                 return Response({"message": "Invalid credentials"}, status=401)
         except User.DoesNotExist:
             return Response({"message": "Invalid Credentials"}, status=401)
-
+         
