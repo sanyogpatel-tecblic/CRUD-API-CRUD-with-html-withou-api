@@ -13,8 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import datetime
 import os
-from dotenv import load_dotenv
-load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,44 +40,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'DRF_app',
-    'social_django', 
-    'rest_framework',
     'rest_framework.authtoken',
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'rest_auth',
-    'rest_auth.registration',
-    'social_django',
 ]
-AUTHENTICATION_BACKENDS = [
-    'social_core.backends.google.GoogleOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-    'social_core.backends.google.GoogleOAuth2',
-]
-AUTHENTICATION_BACKENDS = [
-    
-    'allauth.account.auth_backends.AuthenticationBackend',
-    'social_core.backends.google.GoogleOAuth2',
-    
-]
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'APP': {
-            'client_id': '917985598513-2t9v1m422b0od8ag0r3852c4rgu36pt5.apps.googleusercontent.com',
-            'secret': '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',
-            'key': ''
-        }
-    }
-}
+SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware', 
@@ -188,3 +153,4 @@ REST_FRAMEWORK = {
 }
 
 
+LOGIN_REDIRECT_URL = "/admin/login"

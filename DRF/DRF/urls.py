@@ -19,7 +19,7 @@ from django.urls import path
 from DRF_app import views
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
-
+    
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,7 +39,8 @@ urlpatterns = [
     path('search_task/',views.Search_Task,name='searchtask'),
     path('verify_link/<id>/<token>/',views.verifyLink.as_view(),name = "Verify Email Link"),
     path('verifypassword/', views.VerifyPassword.as_view(), name='verify-password'),
-   
+    path('login/', views.LogIn.as_view(), name='login'),    
 ]
+ 
 
 

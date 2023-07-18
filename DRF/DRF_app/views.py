@@ -227,20 +227,34 @@ def MarkAsDone(request, task_id):
     message = {"message": "You cannot perform any action on another user's task."}
     return Response(message, status=403)
 
+# views.py
+
+from django.core.exceptions import PermissionDenied
+from DRF_app.utilities.utils import generate_totp_token
+
 class LogIn(APIView):
     authentication_classes = []
 
     def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
+        otp = request.data.get('otp')  # OTP entered by the user
 
         try:
             user = authenticate(email=email, password=password)
             if user:
-                token = get_tokens_for_user(user)
-                return Response({'access_token': token})
+                if user.totp_secret_key:
+                    totp_token = generate_totp_token(user.totp_secret_key)
+                    if otp == totp_token:   
+                        token = get_tokens_for_user(user)
+                        return Response({'access_token': token})
+                    else:
+                        return Response({"message": "Invalid OTP"}, status=401)
+                else:
+                    return Response({"message": "2FA not set up"}, status=401)
             else:
                 return Response({"message": "Invalid credentials"}, status=401)
         except User.DoesNotExist:
             return Response({"message": "Invalid Credentials"}, status=401)
+
          

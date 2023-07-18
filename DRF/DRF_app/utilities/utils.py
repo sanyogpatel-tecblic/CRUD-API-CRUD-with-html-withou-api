@@ -1,8 +1,7 @@
 from DRF_app.customs.authentication import create_refresh_token,decode_refresh_token,create_access_token
 from django.core.mail import EmailMessage
-import os
-from dotenv import load_dotenv
-load_dotenv()
+import os,pyotp
+
 def get_tokens_for_user(user):
     # refresh = RefreshToken.for_user(user)
     # access_token = create_access_token(user.id)
@@ -26,3 +25,7 @@ class Util:
         )
         print(email)
         email.send()
+
+def generate_totp_token(secret_key):
+    totp = pyotp.TOTP(secret_key)
+    return totp.now()
