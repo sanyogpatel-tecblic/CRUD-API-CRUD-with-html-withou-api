@@ -86,7 +86,33 @@ DATABASES = {
         'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '5432'
-    }
+    }   
+}
+
+# settings.py
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+        'DRF_app': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    },
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -122,6 +148,19 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://localhost:6379/1', 
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+# Define the cache timeout (in seconds)
+CACHE_TIMEOUT = 60 * 15  # 15 minutes, adjust according to your needs
 
 
 # Internationalization

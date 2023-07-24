@@ -30,7 +30,6 @@ urlpatterns = [
     path('update_task/<int:task_id>',views.Update_Task,name= 'update_task'),    
     path('delete_task/<int:task_id>',views.Delete_Task,name= 'delete_task'),
     path('login',views.LogIn.as_view(),name='login'),
-    # path('login',views.LoginVaibhav,name='login'),
     path('markasdone/<int:task_id>',views.MarkAsDone,name='markasdone'),
     path('donetasks',views.GetDoneTasks,name='donetasks'),
     path('register',views.Register,name='register'),
@@ -40,6 +39,8 @@ urlpatterns = [
     path('verify_link/<id>/<token>/',views.verifyLink.as_view(),name = "Verify Email Link"),
     path('verifypassword/', views.VerifyPassword.as_view(), name='verify-password'),
     path('login/', views.LogIn.as_view(), name='login'),    
+    path('verify-otp/', views.OTPVerification.as_view(), name='verify-otp'),
+    # path('fakeuser',views.GetAllTask2,name='getallfaketasks'),
 ]
  
 

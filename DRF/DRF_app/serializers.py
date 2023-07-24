@@ -23,6 +23,16 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Username Must be at least 4 characters long")
         return value
 
+# class UserFakerSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User_Faker
+#         fields= ['first_name','last_name','email']
+        
+# class TaskFakerSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Task_Faker
+#         fields= ['task','role_id','user_id']
+        
 class VerifyPasswordSerializer(serializers.Serializer):
     newpassword = serializers.CharField(style={"input_type": "password"})
     confirmpassword = serializers.CharField(style={"input_type": "password"})
@@ -35,7 +45,6 @@ class VerifyPasswordSerializer(serializers.Serializer):
             token = self.context["request"].query_params.get("token")
             id = smart_str(urlsafe_base64_decode(id))
             
-            # Retrieve the user object based on the decoded id
             user = User.objects.get(id=id)
             
             if not PasswordResetTokenGenerator().check_token(user, token):
@@ -65,4 +74,9 @@ class TaskSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Task should be at least 4 characters long.")
         return value
     
+# class TaskFakeSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Task
+#         fields = ['task','user']
 
+    

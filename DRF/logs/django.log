@@ -1,0 +1,195 @@
+Watching for file changes with StatReloader
+Unauthorized: /login
+"POST /login HTTP/1.1" 401 33
+Unauthorized: /login
+"POST /login HTTP/1.1" 401 33
+Not Found: /register
+"POST /register HTTP/1.1" 404 16
+Watching for file changes with StatReloader
+Bad Request: /register
+"POST /register HTTP/1.1" 400 50
+"POST /register HTTP/1.1" 200 16
+Internal Server Error: /login
+Traceback (most recent call last):
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/DRF_app/views.py", line 257, in post
+    qr.save(qr_bytes, format='PNG')
+TypeError: PyPNGImage.save() got an unexpected keyword argument 'format'
+"POST /login HTTP/1.1" 500 96439
+Internal Server Error: /login
+Traceback (most recent call last):
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/DRF_app/views.py", line 257, in post
+    qr.save(qr_bytes, format='PNG')
+TypeError: PyPNGImage.save() got an unexpected keyword argument 'format'
+"POST /login HTTP/1.1" 500 96436
+/home/tecblic/Music/Python/django/DRF/DRF_app/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Internal Server Error: /login
+Traceback (most recent call last):
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/DRF_app/views.py", line 257, in post
+    qr.save(qr_bytes, format='PNG')
+TypeError: PyPNGImage.save() got an unexpected keyword argument 'format'
+"POST /login HTTP/1.1" 500 96436
+Watching for file changes with StatReloader
+Not Found: /register
+"POST /register HTTP/1.1" 404 16
+/home/tecblic/Music/Python/django/DRF/DRF/settings.py changed, reloading.
+Watching for file changes with StatReloader
+"POST /register HTTP/1.1" 200 16
+Internal Server Error: /login
+Traceback (most recent call last):
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/DRF_app/views.py", line 257, in post
+    qr.save(qr_bytes, format='PNG')
+TypeError: PyPNGImage.save() got an unexpected keyword argument 'format'
+"POST /login HTTP/1.1" 500 96440
+/home/tecblic/Music/Python/django/DRF/DRF/settings.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /login
+Traceback (most recent call last):
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/tecblic/Music/Python/django/DRF/env/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/DRF_app/views.py", line 257, in post
+    qr.save(qr_bytes, format='PNG')
+TypeError: PyPNGImage.save() got an unexpected keyword argument 'format'
+"POST /login HTTP/1.1" 500 96440
+Watching for file changes with StatReloader
+Internal Server Error: /login
+Traceback (most recent call last):
+  File "/home/tecblic/miniconda3/lib/python3.10/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/tecblic/miniconda3/lib/python3.10/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/tecblic/miniconda3/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/tecblic/miniconda3/lib/python3.10/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/tecblic/miniconda3/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/tecblic/miniconda3/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/tecblic/miniconda3/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/tecblic/miniconda3/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/tecblic/Music/Python/django/DRF/DRF_app/views.py", line 257, in post
+    qr.save(qr_bytes, format='PNG')
+TypeError: PyPNGImage.save() got an unexpected keyword argument 'format'
+"POST /login HTTP/1.1" 500 96410
+/home/tecblic/Music/Python/django/DRF/DRF_app/views.py changed, reloading.
+Watching for file changes with StatReloader
+"POST /login HTTP/1.1" 200 831
+"POST /login HTTP/1.1" 200 831
+/home/tecblic/Music/Python/django/DRF/DRF_app/views.py changed, reloading.
+Watching for file changes with StatReloader
+"POST /login HTTP/1.1" 200 831
+Unauthorized: /login
+"POST /login HTTP/1.1" 401 33
+Invalid Email: sanyogpatel2.tecblic@gmail.com
+Unauthorized: /verify-otp/
+"POST /verify-otp/ HTTP/1.1" 401 27
+Unauthorized: /login
+"POST /login HTTP/1.1" 401 33
+OTP verification successful for user with email: sanyogpatel3.tecblic@gmail.com
+"POST /verify-otp/ HTTP/1.1" 200 383
+/home/tecblic/Music/Python/django/DRF/DRF_app/views.py changed, reloading.
+Watching for file changes with StatReloader
+/home/tecblic/Music/Python/django/DRF/DRF_app/views.py changed, reloading.
+Watching for file changes with StatReloader
+/home/tecblic/Music/Python/django/DRF/DRF_app/views.py changed, reloading.
+Watching for file changes with StatReloader
+/home/tecblic/Music/Python/django/DRF/DRF_app/views.py changed, reloading.
+Watching for file changes with StatReloader
+/home/tecblic/Music/Python/django/DRF/DRF_app/views.py changed, reloading.
+Watching for file changes with StatReloader
+/home/tecblic/Music/Python/django/DRF/DRF_app/views.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /admin/first_app/user/
+"GET /admin/first_app/user/ HTTP/1.1" 404 6458
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3999
+Watching for file changes with StatReloader
+"POST /login HTTP/1.1" 200 831
+Unauthorized: /login
+"POST /login HTTP/1.1" 401 33
+Invalid OTP for user with email: sanyogpatel3.tecblic@gmail.com
+Unauthorized: /verify-otp/
+"POST /verify-otp/ HTTP/1.1" 401 25
+Watching for file changes with StatReloader

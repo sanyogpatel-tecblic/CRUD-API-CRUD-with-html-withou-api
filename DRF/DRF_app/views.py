@@ -15,10 +15,17 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from rest_framework.views import APIView
 import os
 from DRF_app.utilities.utils import Util
-import sendgrid
-from sendgrid.helpers.mail import Mail
-from django.conf import settings
-from django.core.mail import send_mail
+
+from DRF_app.utilities.utils import generate_totp_token
+
+import pyotp
+import qrcode
+import io
+from django.contrib.auth import get_user_model
+from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 # Create your views here.
 
 # Response is used to return API responses in DRF
@@ -227,10 +234,15 @@ def MarkAsDone(request, task_id):
     message = {"message": "You cannot perform any action on another user's task."}
     return Response(message, status=403)
 
-# views.py
+import qrcode
+import io
+from django.http import HttpResponse
+from rest_framework.views import APIView
+from django.contrib.auth import authenticate, get_user_model
+from rest_framework.response import Response
+import pyotp
 
-from django.core.exceptions import PermissionDenied
-from DRF_app.utilities.utils import generate_totp_token
+CustomUser = get_user_model()
 
 class LogIn(APIView):
     authentication_classes = []
@@ -238,23 +250,90 @@ class LogIn(APIView):
     def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
-        otp = request.data.get('otp')  # OTP entered by the user
-
+        
         try:
             user = authenticate(email=email, password=password)
             if user:
                 if user.totp_secret_key:
-                    totp_token = generate_totp_token(user.totp_secret_key)
-                    if otp == totp_token:   
-                        token = get_tokens_for_user(user)
-                        return Response({'access_token': token})
-                    else:
-                        return Response({"message": "Invalid OTP"}, status=401)
+                    otpauth_url = pyotp.totp.TOTP(user.totp_secret_key).provisioning_uri(
+                        name=email, issuer_name="YourApp" 
+                    )
+                    qr = qrcode.make(otpauth_url)
+
+                    qr_bytes = io.BytesIO()
+                    qr.save(qr_bytes)
+                    qr_bytes.seek(0) 
+
+                    return HttpResponse(qr_bytes, content_type='image/png')
                 else:
                     return Response({"message": "2FA not set up"}, status=401)
             else:
                 return Response({"message": "Invalid credentials"}, status=401)
-        except User.DoesNotExist:
+        except CustomUser.DoesNotExist:
             return Response({"message": "Invalid Credentials"}, status=401)
 
-         
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.contrib.auth import get_user_model
+
+import logging
+
+logger = logging.getLogger(__name__)
+
+CustomUser = get_user_model()
+
+class OTPVerification(APIView):
+    authentication_classes = []
+
+    def post(self, request):
+        email = request.data.get('email')
+        otp = request.data.get('otp')
+        try:
+            user = CustomUser.objects.get(email=email)
+            if user.verify_otp(otp):
+                user.is_verify = True
+                user.save()
+                token = get_tokens_for_user(user)
+
+                logger.info(f"OTP verification successful for user with email: {email}")
+
+                return Response({'access_token': token, 'message': 'OTP verification successful. Logged in.'})
+            else:
+                logger.warning(f"Invalid OTP for user with email: {email}")
+                return Response({"message": "Invalid OTP"}, status=401)
+        except CustomUser.DoesNotExist:
+            logger.warning(f"Invalid Email: {email}")
+            return Response({"message": "Invalid Email"}, status=401)
+
+        
+
+# from django.core.cache import cache
+# from django.conf import settings
+# from rest_framework.decorators import api_view
+# from rest_framework.response import Response
+# from DRF_app.models import Task_Faker
+# from DRF_app.serializers import TaskFakerSerializer
+
+# @api_view(['GET'])
+# @authentication_classes([])
+# def GetAllTask2(request):
+#     try:
+#         cached_response = cache.get('all_tasks')  
+#         if cached_response is not None:
+#             print("from cache memory")
+#             return Response(cached_response)
+
+#         print("from database")
+#         tasks = Task_Faker.objects.all()
+#         serializer = TaskFakerSerializer(tasks, many=True)
+#         cache.set('all_tasks', serializer.data, settings.CACHE_TIMEOUT)
+
+#         return Response(serializer.data)
+
+#     except Exception as e:
+#         print("Cache Exception:", str(e))
+#         tasks = Task_Faker.objects.all()
+#         serializer = TaskFakerSerializer(tasks, many=True)
+#         return Response(serializer.data)
+
+
