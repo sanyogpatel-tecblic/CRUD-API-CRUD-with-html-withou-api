@@ -1,11 +1,7 @@
 from django.contrib.auth.models import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.core.mail import send_mail
 from django.db import models
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
-from DRF.settings import EMAIL_HOST_USER
+
 import pyotp
 class Role(models.Model):
     name = models.CharField(max_length=255)

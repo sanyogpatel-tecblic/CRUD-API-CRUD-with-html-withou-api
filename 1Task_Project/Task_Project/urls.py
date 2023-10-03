@@ -10,5 +10,6 @@ urlpatterns = [
     path('state/',views.GetState,name='state'),
     path('zone/',views.GetZone,name='zone'),
     path('district/',views.GetDistrict,name='district'),
+    path('send_email/', views.SendEmailToAll.as_view(), name='send_email'),
 ]
 

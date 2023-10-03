@@ -20,3 +20,10 @@ class DistrictSerializer(serializers.ModelSerializer):
     class Meta:
         model = District
         fields = ['id', 'district','zone_id']
+        
+
+
+class SheetDataSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2)
+

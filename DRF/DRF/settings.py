@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'DRF_app',
     'rest_framework.authtoken',
     'django.contrib.sites',
+    'twodb_app'
 ]
 SITE_ID = 1
 MIDDLEWARE = [

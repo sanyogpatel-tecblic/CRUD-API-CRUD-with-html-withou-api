@@ -193,3 +193,51 @@ Invalid OTP for user with email: sanyogpatel3.tecblic@gmail.com
 Unauthorized: /verify-otp/
 "POST /verify-otp/ HTTP/1.1" 401 25
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Unauthorized: /login/
+"POST /login/ HTTP/1.1" 401 33
+Unauthorized: /login/
+"POST /login/ HTTP/1.1" 401 33
+Not Found: /
+"GET / HTTP/1.1" 404 4086
+"GET /admin/ HTTP/1.1" 302 0
+"GET /admin/login/?next=/admin/ HTTP/1.1" 200 4178
+"GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+"GET /static/admin/css/base.css HTTP/1.1" 304 0
+"GET /static/admin/js/theme.js HTTP/1.1" 304 0
+"GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+"GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+"GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+"GET /static/admin/css/login.css HTTP/1.1" 304 0
+"GET /admin/ HTTP/1.1" 302 0
+"GET /admin/login/?next=/admin/ HTTP/1.1" 200 4178
+"POST /admin/login/?next=/admin/ HTTP/1.1" 200 4346
+Watching for file changes with StatReloader
+"POST /admin/login/?next=/admin/ HTTP/1.1" 200 4346
+"POST /admin/login/?next=/admin/ HTTP/1.1" 200 4346
+"POST /admin/login/?next=/admin/ HTTP/1.1" 200 4346
+"POST /admin/login/?next=/admin/ HTTP/1.1" 200 4336
+Not Found: /authors/
+"POST /authors/ HTTP/1.1" 404 4129
+Not Found: /books/
+"POST /books/ HTTP/1.1" 404 4123
+Watching for file changes with StatReloader
+Not Found: /authors/
+"GET /authors/ HTTP/1.1" 404 4128
+Watching for file changes with StatReloader
+Not Found: /authors/
+"GET /authors/ HTTP/1.1" 404 4128
+Watching for file changes with StatReloader
+/home/tecblic/Music/Python/django/DRF/DRF/urls.py changed, reloading.
+Watching for file changes with StatReloader
+/home/tecblic/Music/Python/django/DRF/DRF/urls.py changed, reloading.
+Watching for file changes with StatReloader
+/home/tecblic/Music/Python/django/DRF/DRF/urls.py changed, reloading.
+Watching for file changes with StatReloader
+/home/tecblic/Music/Python/django/DRF/DRF/urls.py changed, reloading.
+Watching for file changes with StatReloader
+/home/tecblic/Music/Python/django/DRF/DRF/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /authors/
+"GET /authors/ HTTP/1.1" 404 4128
+Watching for file changes with StatReloader

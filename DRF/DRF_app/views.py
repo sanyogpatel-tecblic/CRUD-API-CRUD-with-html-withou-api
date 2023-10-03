@@ -66,6 +66,7 @@ class verifyLink(APIView):
     authentication_classes = []
     def get(self,request,id,token):
         id = smart_str(urlsafe_base64_decode(id))
+       
         user = User.objects.get(id=id) 
         if not PasswordResetTokenGenerator().check_token(user, token):
             return Response({"message":"your token is expired"},status=status.HTTP_400_BAD_REQUEST)
@@ -87,8 +88,6 @@ class VerifyPassword(APIView):
         response = serializer.errors
         response["status"] = status.HTTP_400_BAD_REQUEST
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        
 
 @api_view(['GET'])
 @permission_classes([IsAdminOnly])
@@ -159,7 +158,7 @@ def Search_Task(request):
     if request.method == 'GET':
         if request.user.is_verify == True:
             search = request.query_params.get('search')
-            words = search.split()
+            words = search.split()  
             query = Q()
         
             for word in words:

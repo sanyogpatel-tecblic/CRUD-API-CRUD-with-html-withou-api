@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from DRF_app import views
+
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
     
@@ -41,6 +42,10 @@ urlpatterns = [
     path('login/', views.LogIn.as_view(), name='login'),    
     path('verify-otp/', views.OTPVerification.as_view(), name='verify-otp'),
     # path('fakeuser',views.GetAllTask2,name='getallfaketasks'),
+    
+
+    
+    
 ]
  
 
