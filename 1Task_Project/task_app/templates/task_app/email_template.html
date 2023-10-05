@@ -1,46 +1,190 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Google Sheet Data</title>
-
+    <title>Employee Information</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-
         .header {
-            background-color: #007bff; 
+            background-color: #007bff;
             color: #fff;
             padding: 10px;
+            text-align: center;
         }
+
+        .container {
+            margin-top: 20px;
+        }
+
         .info-box {
             border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h2 {
+            background-color: #f5f5f5;
             padding: 10px;
-            margin-bottom: 10px;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1 class="text-center">Google Sheet Data</h1>
-    </div>
+<div class="header">
+    <h1>Employee Information</h1>
+</div>
 
-
-    <div class="container">
-        <div class="row">
-
-            <div class="col-md-4">
-                <div class="info-box">
-                    <h2>Email</h2>
-                    <p>{{ email }}</p>
-                </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="info-box">
+                <h2>Employee Details</h2>
+                <table>
+                    <tr>
+                        <th>Employee Code</th>
+                        <td>{{ employee_code }}</td>
+                    </tr>
+                    <tr>
+                        <th>Employee Name</th>
+                        <td>{{ employee_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Designation</th>
+                        <td>{{ designation }}</td>
+                    </tr>
+                    <tr>
+                        <th>Department</th>
+                        <td>{{ department }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date of Joining</th>
+                        <td>{{ date_of_joining }}</td>
+                    </tr>
+                </table>
             </div>
-            <div class="col-md-4">
-                <div class="info-box">
-                    <h2>Amount</h2>
-                    <p>{{ amount }}</p>
-                </div>
+        </div>
+        <div class="col-md-6">
+            <div class="info-box">
+                <h2>Bank Details</h2>
+                <table>
+                    <tr>
+                        <th>Bank Name</th>
+                        <td>{{ bank_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Bank Account Number</th>
+                        <td>{{ bank_ac_No }}</td>
+                    </tr>
+                    <tr>
+                        <th>PAN Number</th>
+                        <td>{{ pan_no }}</td>
+                    </tr>
+                    <tr>
+                        <th>UAN Number</th>
+                        <td>{{ uan_number }}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="info-box">
+                <h2>Attendance</h2>
+                <table>
+                    <tr>
+                        <th>Present Days</th>
+                        <td>{{ present_days }}</td>
+                    </tr>
+                    <tr>
+                        <th>Paid Leaves</th>
+                        <td>{{ paid_leaves }}</td>
+                    </tr>
+                    <tr>
+                        <th>Weekly Off</th>
+                        <td>{{ weekly_off }}</td>
+                    </tr>
+                    <tr>
+                        <th>Holidays</th>
+                        <td>{{ holidays }}</td>
+                    </tr>
+                    <tr>
+                        <th>LWP (Loss of Pay)</th>
+                        <td>{{ lwp }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Salary Days</th>
+                        <td>{{ total_salary_days }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="info-box">
+                <h2>Salary Details</h2>
+                <table>
+                    <tr>
+                        <th>Basic Salary</th>
+                        <td>{{ basic_salary }}</td>
+                    </tr>
+                    <tr>
+                        <th>House Rent Allowance</th>
+                        <td>{{ house_rent_allowance }}</td>
+                    </tr>
+                    <tr>
+                        <th>Conveyance Allowance</th>
+                        <td>{{ conveyance_allowance }}</td>
+                    </tr>
+                    <tr>
+                        <th>Special Allowance</th>
+                        <td>{{ special_allowance }}</td>
+                    </tr>
+                    <tr>
+                        <th>Professional Tax (Pro Tax)</th>
+                        <td>{{ pro_tax }}</td>
+                    </tr>
+                    <tr>
+                        <th>TDS (Tax Deducted at Source)</th>
+                        <td>{{ tds }}</td>
+                    </tr>
+                    <tr>
+                        <th>Provident Fund</th>
+                        <td>{{ provident_fund }}</td>
+                    </tr>
+                    <tr>
+                        <th>ESIC (Employee State Insurance Corporation)</th>
+                        <td>{{ esic }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Earnings Actual Rate</th>
+                        <td>{{ total_earnings_actual_rate }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Earnings Actual Rate</th>
+                        <td>{{ total_earnings_earnings }}</td>
+                    </tr>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

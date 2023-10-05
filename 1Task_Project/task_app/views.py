@@ -107,6 +107,50 @@ class SendEmailToAll(APIView):
         from_email = 'sanyog.patel@tecblic.com'
 
         for row in data:
+            basic_salary_actual_rate = row.get('basic_salary_actual_rate', 0)
+            house_rent_allowance_actual_rate = row.get('house_rent_allowance_actual_rate', 0)
+            conveyance_allowance_actual_rate = row.get('conveyance_allowance_actual_rate', 0)
+            special_allowance_actual_rent = row.get('special_allowance_actual_rent', 0)
+
+            total_earnings_actual_rate = (
+                basic_salary_actual_rate
+                + house_rent_allowance_actual_rate
+                + conveyance_allowance_actual_rate
+                + special_allowance_actual_rent
+            )
+            
+            row['total_earnings_actual_rate'] = total_earnings_actual_rate
+            print(f'Total Earnings Actual Rate: {total_earnings_actual_rate}')
+            
+            total_earnings_earnings= (
+                row['basic_salary_earnings']
+                + row['house_rent_allowance_earnings']
+                + row['conveyance_allowance_earnings']
+                + row['special_allowance_earnings']
+            )
+            row['total_earnings_earnings'] = total_earnings_earnings
+            print(f'Total Earnings Actual Rate Earnings: {total_earnings_earnings}')
+            
+            total_deductions_actual_deductions = (
+                row['pro_tax_actual_deduction']
+                + row['tds_actual_deduction']
+                + row['provident_fund_actual_deduction']
+                + row['esic_actual_deduction']
+            )
+
+            row['total_deductions_actual_deductions'] = total_deductions_actual_deductions
+            print(f'Total deductions Actual Deductions: {total_deductions_actual_deductions}')
+            
+            total_deductions_deductions = (
+                row['pro_tax_deduction']
+                + row['tds_deduction']
+                + row['provident_fund_deduction']
+                + row['esic_deduction']
+            )
+
+            row['total_deductions_deductions'] = total_deductions_deductions
+            print(f'Total deductions: {total_deductions_deductions}')
+
             email = row['email']
             serializer = SheetDataSerializer(row)
 
@@ -118,7 +162,7 @@ class SendEmailToAll(APIView):
                 from_email,
                 [email],
             )
-            email.attach('Google_Sheet_Data.pdf', pdf_content.getvalue(), 'application/pdf')
+            email.attach('Salary Slip.pdf', pdf_content.getvalue(), 'application/pdf')
 
             email.send(fail_silently=False)
 
