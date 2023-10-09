@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title>Test Slip</title>
+  </head>
+  <body style="margin: 15px; font-size: small">
+    <!-- main div -->
+    <div
+      class="container"
+      style="border: 3px solid black; padding-left: 0; padding-right: 0"
+    >
+      <!-- header section  -->
+      {% comment %} {% static "/LOGO.svg"%} {% endcomment %}
+      <header style="border-bottom: 1px solid black">
+        <div class="company_details" style="display: flex">
+          <div class="compant_logo" style="padding: 10px">
+            <img src="/LOGO.svg" alt="logo" style="width: 84px" />
+          </div>
+          <div class="company_name" style="width: 100%; margin-top: 1rem">
+            <h4
+              style="display: flex; justify-content: center; font-weight: bold"
+            >
+              Tecblic Pvt. Ltd. 
+            </h4>
+            <p
+              style="
+                display: flex;
+                justify-content: center;
+                font-size: small;
+                margin-top: 0;
+                margin-bottom: 0;
+              "
+            >
+              510/511, Shivalik Shilp 2, Nr. Keshavbaug Party plot, Satellite,
+              Ahmedabad- 380015
+            </p>
+            <p
+              style="
+                display: flex;
+                justify-content: center;
+                font-weight: bold;
+                font-size: larger;
+              "
+            >
+              Pay Slip for the Month of Sepetmeber From Date 01-09-2023 To
+              30-09-2023
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <section style="margin-top: 21px">
+        <div style="display: flex; justify-content: left">
+          <table style="border: 1px solid black; width: 100%">
+            <tbody style="border: 1px solid black">
+              <tr style="border: 1px solid black; border-left: none">
+                <th style="border-right: 1px solid black; text-align: center">
+                  Employee Code :
+                </th>
+                <td style="text-align: center">TESTID111</td>
+              </tr>
+              <tr style="border: 1px solid black; border-left: none">
+                <th style="border-right: 1px solid black; text-align: center">
+                  Employee Name :
+                </th>
+                <td style="text-align: center">Test Name 1</td>
+              </tr>
+              <tr style="border: 1px solid black">
+                <th style="border-right: 1px solid black; text-align: center">
+                  Designation :
+                </th>
+                <td style="text-align: center">Test Position 1</td>
+              </tr>
+              <tr style="border: 1px solid black">
+                <th style="border-right: 1px solid black; text-align: center">
+                  Department :
+                </th>
+                <td style="text-align: center">Test Dept 1</td>
+              </tr>
+              <tr style="border: 1px solid black">
+                <th
+                  style="
+                    border-right: 1px solid black;
+                    display: flex;
+                    justify-content: center;
+                  "
+                >
+                  Date of Joining :
+                </th>
+                <td style="text-align: center">4 October 2023</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table style="width: 100%">
+            <tbody
+              style="
+                border-top: 1px solid black;
+                border-bottom: 1px solid black;
+              "
+            >
+              <tr style="border: 1px solid black; border-left: none">
+                <th style="border-right: 1px solid black; text-align: center">
+                  Bank A/C No :
+                </th>
+                <td style="text-align: center">1111111111</td>
+              </tr>
+              <tr style="border: 1px solid black; border-left: none">
+                <th style="border-right: 1px solid black; text-align: center">
+                  Bank Name :
+                </th>
+                <td style="text-align: center">
+                  The Kalupur Commercial Co-operative Bank Ltd
+                </td>
+              </tr>
+              <tr style="border: 1px solid black; border-left: none">
+                <th style="border-right: 1px solid black; text-align: center">
+                  PAN No :
+                </th>
+                <td style="text-align: center">AAAAA1234B</td>
+              </tr>
+              <tr style="border: 1px solid black; border-left: none">
+                <th style="border-right: 1px solid black; text-align: center">
+                  UAN Number :
+                </th>
+                <td style="text-align: center">222222222222</td>
+              </tr>
+              <tr style="border: 1px solid black; border-left: none">
+                <th style="border: 1px solid black; border-left: none"></th>
+                <td style="height: 23px"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top: 19px">
+          <table style="width: 100%">
+            <tbody style="display: flex; border: 1px solid black">
+              <tr style="width: 15%; display: flex; justify-content: center">
+                <th>Present Days :</th>
+                <td>12</td>
+              </tr>
+
+              <tr
+                style="
+                  border-left: 1px solid black;
+                  width: 20%;
+                  display: flex;
+                  justify-content: center;
+                "
+              >
+                <th>Paid Leaves :</th>
+                <td>16</td>
+              </tr>
+
+              <tr
+                style="
+                  border-left: 1px solid black;
+                  width: 15%;
+                  display: flex;
+                  justify-content: center;
+                "
+              >
+                <th>Weekly Off:</th>
+                <td>16</td>
+              </tr>
+
+              <tr
+                style="
+                  border-left: 1px solid black;
+                  width: 15%;
+                  display: flex;
+                  justify-content: center;
+                "
+              >
+                <th>Holidays :</th>
+                <td>16</td>
+              </tr>
+
+              <tr
+                style="
+                  border-left: 1px solid black;
+                  width: 15%;
+                  display: flex;
+                  justify-content: center;
+                "
+              >
+                <th>LWP:</th>
+                <td>16</td>
+              </tr>
+
+              <tr
+                style="
+                  border-left: 1px solid black;
+                  width: 20%;
+                  display: flex;
+                  justify-content: center;
+                "
+              >
+                <th>Total Salary Days :</th>
+                <td>16</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            margin-top: 19px;
+            width: 100%;
+          "
+        >
+          <table style="text-align: center; width: 45%">
+            <thead>
+              <tr style="border: 1px solid black">
+                <th style="border: 1px solid black">PARTICULARS</th>
+                <th style="border: 1px solid black">ACTUAL RATE (INR)</th>
+                <th style="border: 1px solid black">EARNINGS(INR)</th>
+              </tr>
+            </thead>
+            <tbody style="border: 1px solid black">
+              <tr style="border: 1px solid black">
+                <td style="border: 1px solid black">Basic Salary</td>
+                <td style="border: 1px solid black">3,333</td>
+                <td style="border: 1px solid black">5,000</td>
+              </tr>
+              <tr style="border: 1px solid black">
+                <td style="border: 1px solid black">House Rent Allowance</td>
+                <td style="border: 1px solid black">4,444</td>
+                <td style="border: 1px solid black">2,000</td>
+              </tr>
+              <tr style="border: 1px solid black">
+                <td style="border: 1px solid black">Conveyance Allowance</td>
+                <td style="border: 1px solid black">555</td>
+                <td style="border: 1px solid black">1,000</td>
+              </tr>
+              <tr style="border: 1px solid black">
+                <td style="border: 1px solid black">Special Allowance</td>
+                <td style="border: 1px solid black">6,666</td>
+                <td style="border: 1px solid black">2,000</td>
+              </tr>
+              <tr style="border: 1px solid black">
+                <td style="border: 1px solid black; font-weight: bold">
+                  Total Earnings :
+                </td>
+                <td style="border: 1px solid black">14,998</td>
+                <td style="border: 1px solid black">9,999</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table style="text-align: center; width: 45%">
+            <thead>
+              <tr style="border: 1px solid black">
+                <th style="border: 1px solid black">PARTICULARS</th>
+                <th style="border: 1px solid black">ACTUAL</th>
+                <th style="border: 1px solid black">DEDUCTIONS(INR)</th>
+              </tr>
+            </thead>
+            <tbody style="border: 1px solid black">
+              <tr style="border: 1px solid black">
+                <td style="border: 1px solid black">Pro Tax</td>
+                <td style="border: 1px solid black">200</td>
+                <td style="border: 1px solid black">200</td>
+              </tr>
+              <tr style="border: 1px solid black">
+                <td style="border: 1px solid black">TDS</td>
+                <td style="border: 1px solid black">5200</td>
+                <td style="border: 1px solid black">5200</td>
+              </tr>
+              <tr style="border: 1px solid black">
+                <td style="border: 1px solid black">Provident Fund</td>
+                <td style="border: 1px solid black">1800</td>
+                <td style="border: 1px solid black">158</td>
+              </tr>
+              <tr style="border: 1px solid black">
+                <td style="border: 1px solid black">ESIC</td>
+                <td style="border: 1px solid black">153</td>
+                <td style="border: 1px solid black">153</td>
+              </tr>
+              <tr style="border: 1px solid black">
+                <td style="border: 1px solid black; font-weight: bold">
+                  Total Deductions :
+                </td>
+                <td style="border: 1px solid black">7353</td>
+                <td style="border: 1px solid black">5711</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div
+          style="
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 10px;
+            margin-top: 39px;
+            margin-bottom: 25px;
+          "
+        >
+          <table style="width: 70%">
+            <tbody style="border: 1px solid black">
+              <tr style="border: 1px solid black">
+                <th
+                  style="
+                    border: 1px solid black;
+                    width: 30%;
+                    text-align: center;
+                  "
+                >
+                  Employee Net Pay:
+                </th>
+                <td style="padding-left: 5%">30.00</td>
+                <td>(Thirty )</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer style="font-weight: bold">
+        <p style="margin-bottom: 0rem; text-align: center">
+          Note: This is a computer-generated slip.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

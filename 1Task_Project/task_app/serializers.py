@@ -51,9 +51,13 @@ class SheetDataSerializer(serializers.Serializer):
     tds_actual_deduction = serializers.DecimalField(max_digits=10, decimal_places=2)
     tds_deduction = serializers.DecimalField(max_digits=10, decimal_places=2)
     provident_fund_actual_deduction = serializers.DecimalField(max_digits=10, decimal_places=2)
-    provident_fund_deduction = serializers.DecimalField(max_digits=10, decimal_places=2)
+    provident_fund_deduction = serializers.DecimalField(max_digits=10, decimal_places=2) 
     esic_actual_deduction = serializers.DecimalField(max_digits=10, decimal_places=2)
     esic_deduction = serializers.DecimalField(max_digits=10, decimal_places=2)
+    total_earnings_actual_rate= serializers.DecimalField(max_digits=100, decimal_places=2)
+    total_earnings_earnings= serializers.DecimalField(max_digits=100, decimal_places=2)
+    total_deductions_actual_deductions= serializers.DecimalField(max_digits=100, decimal_places=2)
+    total_deductions_deductions= serializers.DecimalField(max_digits=100, decimal_places=2)
 
 
 

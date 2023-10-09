@@ -11,5 +11,6 @@ urlpatterns = [
     path('zone/',views.GetZone,name='zone'),
     path('district/',views.GetDistrict,name='district'),
     path('send_email/', views.SendEmailToAll.as_view(), name='send_email'),
+    path('haha_vibhu/',views.haha_vibhu, name='haha-vibhu')
 ]
 

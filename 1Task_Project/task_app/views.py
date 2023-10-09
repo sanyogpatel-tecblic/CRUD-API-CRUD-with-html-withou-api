@@ -168,7 +168,8 @@ class SendEmailToAll(APIView):
 
         return Response({'message': 'Emails sent successfully.'}, status=status.HTTP_200_OK)
 
-
-
+def haha_vibhu(request):
+    print("HAHAHAHAHHAH")
+    return render(request, 'email_template.html')
 
 
