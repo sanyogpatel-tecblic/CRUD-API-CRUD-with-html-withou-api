@@ -6,6 +6,27 @@ from rest_framework.decorators import api_view,authentication_classes,permission
 from django.db.models import Q
 from rest_framework.views import APIView
 from rest_framework.response import Response
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from django.core.mail import send_mail
+from .serializers import SheetDataSerializer
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from django.core.mail import send_mail
+from .serializers import SheetDataSerializer
+
+from django.core.mail import EmailMessage
+
+
+from django.template.loader import get_template
+from django.http import HttpResponse
+from xhtml2pdf import pisa
 
 
 @api_view(['GET'])
@@ -42,42 +63,6 @@ def GetDistrict(request):
     return Response(serializer.data)
 
 
-# myapp/views.py
-
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from django.core.mail import send_mail
-from .serializers import SheetDataSerializer
-
-# myapp/views.py
-
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from django.core.mail import send_mail
-from .serializers import SheetDataSerializer
-
-from rest_framework import serializers
-import json
-
-from django.core.mail import EmailMessage
-
-# Import necessary libraries
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-import io
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
-
-
-from django.template.loader import get_template
-from django.http import HttpResponse
-from xhtml2pdf import pisa
 
 def render_to_pdf(template_path, context_dict):
     template = get_template(template_path)
