@@ -139,7 +139,7 @@ class SendEmailToAll(APIView):
             email = row['email']
             serializer = SheetDataSerializer(row)
 
-            pdf_content = render_to_pdf('task_app/email_template.html', serializer.data)
+            pdf_content = render_to_pdf('email_template.html', serializer.data)
 
             email = EmailMessage(
                 subject,
@@ -152,9 +152,5 @@ class SendEmailToAll(APIView):
             email.send(fail_silently=False)
 
         return Response({'message': 'Emails sent successfully.'}, status=status.HTTP_200_OK)
-
-def haha_vibhu(request):
-    print("HAHAHAHAHHAH")
-    return render(request, 'email_template.html')
 
 
